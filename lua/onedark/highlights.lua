@@ -1,6 +1,5 @@
 local c = require('onedark.colors')
 local cfg = vim.g.onedark_config
-local util = require("onedark.util")
 
 local M = {}
 local hl = {langs = {}, plugins = {}}

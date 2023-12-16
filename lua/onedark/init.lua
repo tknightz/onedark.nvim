@@ -18,7 +18,7 @@ function M.colorscheme()
   vim.g.colors_name = "onedark"
   if vim.o.background == 'light' then
     M.set_options('style', 'light')
-  elseif vim.g.onedark_config.style == 'light' then
+  elseif vim.g.onedark_config.style == 'dark' then
     M.set_options('style', 'dark')
   end
   require('onedark.highlights').setup()
@@ -27,7 +27,7 @@ end
 
 local default_config = {
   -- Main options --
-  sytle = 'dark',
+  style = 'dark',
   transparent = false,     -- don't set background
   term_colors = true,      -- if true enable the terminal
   ending_tildes = false,    -- show the end-of-buffer tildes
