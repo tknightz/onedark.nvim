@@ -1,13 +1,14 @@
 return {
   dark = {
     black = "#0c0e15",
+    sidebar = "#10151c",
     bg0 = "#141b24",
     bg1 = "#1a212e",
     bg2 = "#283347",
     bg3 = "#2a324a",
-    bg_d = "#141b24",
+    bg_d = "#1a1c23",
     bg_blue = "#54b0fd",
-    bg_yellow = "#f2cc81",
+    light_yellow = "#ffd38b",
     fg = "#93a4c3",
     purple = "#c75ae8",
     green = "#8bcd5b",
@@ -18,10 +19,17 @@ return {
     red = "#f65866",
     grey = "#455574",
     light_grey = "#6c7d9c",
+
     dark_cyan = "#1b6a73",
     dark_red = "#992525",
     dark_yellow = "#8f610d",
-    dark_purple = "#862aa1",
+    dark_purple = "#4f245c",
+
+    bg_cyan = "#132936",
+    bg_red = "#321921",
+    bg_yellow = "#332f00",
+    bg_purple = "#482154",
+
     diff_add = "#27341c",
     diff_delete = "#331c1e",
     diff_change = "#102b40",
@@ -29,13 +37,14 @@ return {
   },
   light = {
     black = "#101012",
+    sidebar = "#c9c9c9",
     bg0 = "#fafafa",
     bg1 = "#f0f0f0",
     bg2 = "#e6e6e6",
     bg3 = "#dcdcdc",
     bg_d = "#c9c9c9",
     bg_blue = "#68aee8",
-    bg_yellow = "#e2c792",
+
     fg = "#383a42",
     purple = "#a626a4",
     green = "#50a14f",
@@ -46,10 +55,17 @@ return {
     red = "#e45649",
     grey = "#a0a1a7",
     light_grey = "#818387",
+
     dark_cyan = "#2b5d63",
     dark_red = "#833b3b",
     dark_yellow = "#7c5c20",
     dark_purple = "#79428a",
+
+    bg_cyan = "#132936",
+    bg_red = "#321921",
+    bg_yellow = "#8f610d",
+    bg_purple = "#4f245c",
+
     diff_add = "#e2fbe4",
     diff_delete = "#fce2e5",
     diff_change = "#e2ecfb",

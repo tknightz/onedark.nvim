@@ -25,22 +25,9 @@ function M.colorscheme()
   require('onedark.terminal').setup()
 end
 
----Toggle between onedark styles
-function M.toggle()
-  local index = vim.g.onedark_config.toggle_style_index + 1
-  if index > #vim.g.onedark_config.toggle_style_list then index = 1 end
-  M.set_options('style', vim.g.onedark_config.toggle_style_list[index])
-  M.set_options('toggle_style_index', index)
-  if vim.g.onedark_config.style == 'light' then
-    vim.o.background = 'light'
-  else
-    vim.o.background = 'dark'
-  end
-  vim.api.nvim_command('colorscheme onedark')
-end
-
 local default_config = {
   -- Main options --
+  sytle = 'dark',
   transparent = false,     -- don't set background
   term_colors = true,      -- if true enable the terminal
   ending_tildes = false,    -- show the end-of-buffer tildes
