@@ -59,7 +59,7 @@ hl.common = {
   Directory = {fg = c.blue},
   ErrorMsg = {fg = c.red, fmt = "bold"},
   WarningMsg = {fg = c.yellow, fmt = "bold"},
-  MoreMsg = {fg = c.blue, fmt = "bold"},
+  MoreMsg = {fg = c.blue, fmt = "italic"},
   CurSearch = {fg = c.bg0, bg = c.orange},
   IncSearch = {fg = c.bg0, bg = c.orange},
   Search = {fg = c.bg0, bg = c.light_yellow},
@@ -398,7 +398,7 @@ hl.plugins.edgy = {
 
 hl.plugins.ufo = {
   UfoCursorFoldedLine = { bg = c.bg2, fmt = "bold" },
-  UfoFoldedBg = { bg = c.dark_purple },
+  UfoFoldedBg = { bg = c.bg_purple },
 }
 
 hl.plugins.dashboard = {

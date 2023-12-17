@@ -19,7 +19,7 @@ local one_dark = {
     c = {fg = colors.gray, bg = cfg.lualine.transparent and c.none or c.bg1},
   },
   normal = {
-    a = {fg = colors.bg, bg = colors.green, gui = 'bold'},
+    a = {fg = colors.bg, bg = colors.red, gui = 'bold'},
     b = {fg = colors.fg, bg = c.bg3},
     c = {fg = colors.fg, bg = cfg.lualine.transparent and c.none or c.bg1},
   },
