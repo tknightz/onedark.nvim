@@ -33,7 +33,7 @@ hl.common = {
   WinBar = { bg = c.sidebar },
   InactiveWinBar = { bg = c.sidebar, fg = c.bg2, fmt = "italic" },
   EndOfBuffer = {fg = cfg.ending_tildes and c.bg2 or c.bg0, bg = cfg.transparent and c.none or c.bg0},
-  FoldColumn = {fg = c.red, bg = c.none, fmt = "nocombine"},
+  FoldColumn = {fg = c.grey, bg = c.none, fmt = "nocombine"},
   Folded = {fg = c.fg, bg = cfg.transparent and c.none or c.bg2},
   SignColumn = {fg = c.fg, bg = c.none, fmt = "nocombine"},
   ToolbarLine = {fg = c.fg},
@@ -417,6 +417,14 @@ hl.plugins.outline = {
 hl.plugins.navic = {
   NavicText = { fg = c.fg, bg = c.sidebar },
   NavicSeparator = { fg = c.light_grey, bg = c.sidebar },
+}
+
+hl.plugins.trouble = {
+  TroubleText = { bg = c.none },
+  TroubleTextError = { fg = c.red },
+  TroubleTextWarning = { fg = c.yellow },
+  TroubleTextHint = { fg = c.purple },
+  TroubleTextInformation = { fg = c.cyan },
 }
 
 hl.plugins.ts_rainbow = {
