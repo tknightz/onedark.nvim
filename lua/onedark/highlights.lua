@@ -48,7 +48,7 @@ hl.common = {
   lCursor = { fmt = "reverse" },
   CursorIM = { fmt = "reverse" },
   CursorColumn = { bg = c.bg1 },
-  CursorLine = { bg = c.bg1 },
+  CursorLine = { bg = c.bg2 },
   ColorColumn = { bg = c.bg1 },
   CursorLineNr = { fg = c.purple, fmt = "italic,bold" },
   LineNr = { fg = c.grey },
@@ -467,7 +467,7 @@ hl.plugins.illuminati = {
 hl.plugins.matchup = {
   MatchWord = { bg = c.dark_purple, fmt = "underline" },
   MatchParen = { fmt = "inverse" },
-  MatchParenCur = { fmt = "nocombine" },
+  MatchParenCur = { fmt = "italic,bold" },
 }
 
 hl.langs.c = {
