@@ -35,8 +35,9 @@ hl.common = {
   Normal = { fg = c.fg, bg = cfg.transparent and c.none or c.bg0 },
   Sidebar = { bg = c.sidebar },
   Terminal = { fg = c.fg, bg = cfg.transparent and c.none or c.bg0 },
-  WinBar = { bg = c.sidebar },
-  InactiveWinBar = { bg = c.sidebar, fg = c.bg2, fmt = "italic" },
+  WinBar = { bg = c.bg_d },
+  WinBarNC = { bg = c.bg_d },
+  InactiveWinBar = { bg = c.bg_d, fg = c.bg2, fmt = "italic" },
   EndOfBuffer = { fg = cfg.ending_tildes and c.bg2 or c.bg0, bg = cfg.transparent and c.none or c.bg0 },
   FoldColumn = { fg = c.grey, bg = c.none, fmt = "nocombine" },
   Folded = { fg = c.fg, bg = cfg.transparent and c.none or c.bg2 },
@@ -48,7 +49,7 @@ hl.common = {
   lCursor = { fmt = "reverse" },
   CursorIM = { fmt = "reverse" },
   CursorColumn = { bg = c.bg1 },
-  CursorLine = { bg = c.bg2 },
+  CursorLine = { bg = c.bg1 },
   ColorColumn = { bg = c.bg1 },
   CursorLineNr = { fg = c.purple, fmt = "italic,bold" },
   LineNr = { fg = c.grey },
@@ -93,12 +94,12 @@ hl.common = {
   WinSeparator = { fg = c.bg1, bg = c.none },
   Visual = { bg = c.bg3 },
   VisualNOS = { fg = c.none, bg = c.bg2, fmt = "underline" },
-  QuickFixLine = { bg = c.purple, fmt = "underline" },
+  QuickFixLine = { bg = c.dark_purple, fmt = "italic" },
   Debug = { fg = c.yellow },
   debugPC = { fg = c.bg0, bg = c.green },
   debugBreakpoint = { fg = c.bg0, bg = c.red },
   ToolbarButton = { fg = c.bg0, bg = c.bg_blue },
-  FloatBorder = { fg = c.bg2, bg = c.none },
+  FloatBorder = { fg = c.bg2, bg = c.bg0 },
   NormalFloat = { fg = c.fg, bg = c.bg1 },
 }
 
@@ -263,6 +264,7 @@ hl.plugins.lsp = {
   LspReferenceRead = { bg = c.bg2 },
 
   LspCodeLens = { fg = c.grey, fmt = cfg.code_style.comments },
+  LspInlayHint = { fg = c.grey },
   LspCodeLensSeparator = { fg = c.grey },
 }
 
@@ -416,8 +418,8 @@ hl.plugins.outline = {
 }
 
 hl.plugins.navic = {
-  NavicText = { fg = c.fg, bg = c.sidebar },
-  NavicSeparator = { fg = c.light_grey, bg = c.sidebar },
+  NavicText = { fg = c.fg, bg = c.bg_d },
+  NavicSeparator = { fg = c.light_grey, bg = c.bg_d },
 }
 
 hl.plugins.trouble = {
@@ -426,6 +428,7 @@ hl.plugins.trouble = {
   TroubleTextWarning = { fg = c.yellow },
   TroubleTextHint = { fg = c.purple },
   TroubleTextInformation = { fg = c.cyan },
+  TroublePreview = { bg = c.dark_purple },
 }
 
 hl.plugins.rainbow_delimiters = {
@@ -453,7 +456,7 @@ hl.plugins.indent_blankline = {
   -- Ibl v3
   IblIndent = { fg = c.bg2, fmt = "nocombine" },
   IblWhitespace = { fg = c.grey, fmt = "nocombine" },
-  IblScope = { fg = c.grey, fmt = "nocombine" },
+  IblScope = { fg = c.purple, fmt = "nocombine" },
 
   MiniIndentscopeSymbol = { fg = c.purple },
 }
@@ -595,7 +598,7 @@ function M.setup()
   for kind, color in pairs(lsp_kind_icons_color) do
     hl.plugins.cmp["CmpItemKind" .. kind] = { fg = color, fmt = cfg.cmp_itemkind_reverse and "reverse" }
     hl.plugins.outline["Aerial" .. kind .. "Icon"] = { fg = color }
-    hl.plugins.navic["NavicIcons" .. kind] = { fg = color, bg = c.sidebar }
+    hl.plugins.navic["NavicIcons" .. kind] = { fg = color, bg = c.bg_d }
   end
 
   vim_highlights(hl.common)

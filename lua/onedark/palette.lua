@@ -1,15 +1,15 @@
 return {
   dark = {
     black = "#0c0e15",
-    sidebar = "#10151c",
-    bg0 = "#141b24",
+    sidebar = "#0d1117",
+    bg0 = "#11171f",
     bg1 = "#1a212e",
     bg2 = "#222b3c",
     bg3 = "#2a324a",
     bg_d = "#1a1c23",
     bg_blue = "#54b0fd",
     light_yellow = "#ffd38b",
-    fg = "#93a4c3",
+    fg = "#9baece",
     purple = "#c75ae8",
     green = "#8bcd5b",
     orange = "#f07a65",
