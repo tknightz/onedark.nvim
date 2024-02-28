@@ -37,7 +37,7 @@ hl.common = {
   Terminal = { fg = c.fg, bg = cfg.transparent and c.none or c.bg0 },
   WinBar = { bg = c.bg_d },
   WinBarNC = { bg = c.bg_d },
-  InactiveWinBar = { bg = c.bg_d, fg = c.bg2, fmt = "italic" },
+  InactiveWinBar = { bg = c.bg_d, fg = c.grey, fmt = "italic" },
   EndOfBuffer = { fg = cfg.ending_tildes and c.bg2 or c.bg0, bg = cfg.transparent and c.none or c.bg0 },
   FoldColumn = { fg = c.grey, bg = c.none, fmt = "nocombine" },
   Folded = { fg = c.fg, bg = cfg.transparent and c.none or c.bg2 },
@@ -157,18 +157,22 @@ hl.treesitter = {
   ["@field"] = colors.Cyan,
   ["@float"] = colors.Orange,
   ["@function"] = { fg = c.blue, fmt = cfg.code_style.functions },
+  ["@function.call"] = { fg = c.blue, fmt = "bold,italic" },
+  ["@function.method.call"] = { fg = c.blue, fmt = "bold,italic" },
   ["@function.builtin"] = { fg = c.cyan, fmt = cfg.code_style.functions },
   ["@function.macro"] = { fg = c.cyan, fmt = cfg.code_style.functions },
-  ["@include"] = colors.Purple,
+  ["@include"] = colors.Cyan,
   ["@keyword"] = { fg = c.purple, fmt = cfg.code_style.keywords },
   ["@keyword.function"] = { fg = c.purple, fmt = cfg.code_style.functions },
   ["@keyword.operator"] = { fg = c.purple, fmt = cfg.code_style.keywords },
+  ["@keyword.export"] = { fg = c.yellow, fmt = cfg.code_style.keywords },
+  ["@keyword.return"] = { fg = c.red, fmt = cfg.code_style.keywords },
   ["@label"] = colors.Red,
-  ["@method"] = { fg = c.blue, fmt = cfg.code_style.functions },
+  ["@function.method"] = { fg = c.blue, fmt = cfg.code_style.functions },
   ["@namespace"] = colors.Yellow,
   ["@none"] = colors.Fg,
   ["@number"] = colors.Orange,
-  ["@operator"] = colors.Fg,
+  ["@operator"] = colors.Purple,
   ["@parameter"] = colors.Red,
   ["@parameter.reference"] = colors.Fg,
   ["@preproc"] = colors.Purple,
@@ -205,6 +209,8 @@ hl.treesitter = {
   ["@type"] = colors.Yellow,
   ["@type.builtin"] = colors.Orange,
   ["@variable"] = { fg = c.fg, fmt = cfg.code_style.variables },
+  ["@variable.member"] = colors.Cyan,
+  ["@variable.property"] = colors.Cyan,
   ["@variable.builtin"] = { fg = c.red, fmt = cfg.code_style.variables },
 
   TreesitterContext = { bg = c.bg_cyan },
@@ -355,7 +361,7 @@ hl.plugins.neo_tree = {
   NeoTreeGitModified = colors.Yellow,
   NeoTreeGitConflict = { fg = c.red, fmt = "bold,italic" },
   NeoTreeGitUntracked = { fg = c.red, fmt = "italic" },
-  NeoTreeIndentMarker = colors.Grey,
+  NeoTreeIndentMarker = { fg = c.bg2 },
   NeoTreeSymbolicLinkTarget = colors.Purple,
 }
 
@@ -492,6 +498,10 @@ hl.langs.cpp = {
   cppTSOperator = colors.Purple,
 }
 
+hl.langs.css = {
+  ["@variable.css"] = { fg = c.light_yellow, fmt = cfg.code_style.variables },
+}
+
 hl.langs.markdown = {
   markdownBlockquote = colors.Grey,
   markdownBold = { fg = c.none, fmt = "bold" },
@@ -591,6 +601,7 @@ local lsp_kind_icons_color = {
   Unit = c.green,
   Value = c.orange,
   Variable = c.purple,
+  Codeium = c.yellow,
 }
 
 function M.setup()
