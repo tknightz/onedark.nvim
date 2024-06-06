@@ -74,7 +74,7 @@ hl.common = {
   NonText = { fg = c.grey, fmt = "nocombine" },
   Whitespace = { fg = c.bg2 },
   SpecialKey = { fg = c.grey },
-  Pmenu = { fg = c.fg, bg = c.bg1 },
+  Pmenu = { fg = c.fg, bg = c.bg_d },
   PmenuSbar = { fg = c.none, bg = c.bg1 },
   PmenuSel = { fg = c.black, bg = c.bg_blue },
   WildMenu = { fg = c.bg0, bg = c.blue },
@@ -169,8 +169,9 @@ hl.treesitter = {
   ["@keyword.return"] = { fg = c.red, fmt = cfg.code_style.keywords },
   ["@label"] = colors.Red,
   ["@function.method"] = { fg = c.blue, fmt = cfg.code_style.functions },
+  ["@method"] = { fg = c.blue, fmt = cfg.code_style.functions },
   ["@namespace"] = colors.Yellow,
-  ["@none"] = colors.Fg,
+  ["@none"] = { fg = c.none },
   ["@number"] = colors.Orange,
   ["@operator"] = colors.Purple,
   ["@parameter"] = colors.Red,
@@ -212,6 +213,9 @@ hl.treesitter = {
   ["@variable.member"] = colors.Cyan,
   ["@variable.property"] = colors.Cyan,
   ["@variable.builtin"] = { fg = c.red, fmt = cfg.code_style.variables },
+
+  ["@markup.link.url"] = colors.Cyan,
+  ["@markup.link.label"] = colors.Orange,
 
   TreesitterContext = { bg = c.bg_cyan },
   TreesitterContextLineNumber = { fg = c.cyan, fmt = "bold,italic" },
@@ -295,7 +299,7 @@ hl.plugins.cmp = {
   CmpItemMenu = colors.LightGrey,
   -- CmpItemKind = { fg = c.purple, fmt = cfg.cmp_itemkind_reverse and "reverse" },
   CmpBorder = { fg = c.bg2 },
-  CmpWin = { bg = c.none },
+  CmpWin = { bg = c.bg },
   CmpItemKindText = { fg = c.green },
 }
 
