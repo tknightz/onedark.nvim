@@ -433,6 +433,8 @@ hl.plugins.navic = {
 }
 
 hl.plugins.trouble = {
+  TroubleNormal = { bg = c.sidebar },
+  TroubleNormalNC = { bg = c.sidebar },
   TroubleText = { bg = c.none },
   TroubleTextError = { fg = c.red },
   TroubleTextWarning = { fg = c.yellow },

@@ -1,7 +1,7 @@
 local colors = require("onedark.colors")
 
 local preset = {
-  separator = colors.black,
+  separator = colors.sidebar,
   modified = colors.green,
   duplicate = colors.bg_yellow,
   warning = colors.dark_yellow,
@@ -12,9 +12,9 @@ local preset = {
 }
 
 local colors = {
-  normal = { fg = colors.bg_cyan, bg = colors.bg_1 },
-  visible = { fg = colors.light_grey, bg = colors.bg_2 },
-  selected = { fg = colors.fg, bg = colors.bg_d },
+  normal = { fg = colors.grey, bg = colors.bg_d },
+  visible = { fg = colors.light_grey, bg = colors.bg1 },
+  selected = { fg = colors.fg, bg = colors.bg2 },
 }
 
 local highlights = {
