@@ -4,6 +4,22 @@ local cfg = vim.g.onedark_config
 local M = {}
 local hl = { langs = {}, plugins = {} }
 
+local function adjust_color(color, factor)
+  local r = tonumber(color:sub(2, 3), 16)
+  local g = tonumber(color:sub(4, 5), 16)
+  local b = tonumber(color:sub(6, 7), 16)
+
+  r = math.floor(r * factor)
+  g = math.floor(g * factor)
+  b = math.floor(b * factor)
+
+  if r > 255 then r = 255 end
+  if g > 255 then g = 255 end
+  if b > 255 then b = 255 end
+
+  return string.format("#%02X%02X%02X", r, g, b)
+end
+
 local function vim_highlights(highlights)
   for group_name, group_settings in pairs(highlights) do
     vim.api.nvim_command(
@@ -74,7 +90,7 @@ hl.common = {
   NonText = { fg = c.grey, fmt = "nocombine" },
   Whitespace = { fg = c.bg2 },
   SpecialKey = { fg = c.grey },
-  Pmenu = { fg = c.fg, bg = c.bg_d },
+  Pmenu = { fg = c.fg, bg = c.bg_cyan },
   PmenuSbar = { fg = c.none, bg = c.bg1 },
   PmenuSel = { fg = c.black, bg = c.bg_blue },
   WildMenu = { fg = c.bg0, bg = c.blue },
@@ -183,6 +199,7 @@ hl.treesitter = {
   ["@punctuation.special"] = colors.Red,
   ["@repeat"] = { fg = c.purple, fmt = cfg.code_style.keywords },
   ["@string"] = { fg = c.green, fmt = cfg.code_style.strings },
+  ["@string.special.url"] = { fg = c.purple, fmt = cfg.code_style.strings },
   ["@string.regex"] = { fg = c.orange, fmt = cfg.code_style.strings },
   ["@string.escape"] = { fg = c.red, fmt = cfg.code_style.strings },
   ["@symbol"] = colors.Cyan,
@@ -295,12 +312,10 @@ hl.plugins.cmp = {
   CmpItemAbbr = colors.Fg,
   CmpItemAbbrDeprecated = { fg = c.light_grey, fmt = "strikethrough" },
   CmpItemAbbrMatch = colors.Cyan,
-  CmpItemAbbrMatchFuzzy = { fg = c.cyan, fmt = "underline" },
+  CmpItemAbbrMatchFuzzy = colors.Cyan,
   CmpItemMenu = colors.LightGrey,
-  -- CmpItemKind = { fg = c.purple, fmt = cfg.cmp_itemkind_reverse and "reverse" },
-  CmpBorder = { fg = c.bg2 },
+  CmpBorder = { fg = c.bg2, bg = c.bg },
   CmpWin = { bg = c.bg },
-  CmpItemKindText = { fg = c.green },
 }
 
 hl.plugins.whichkey = {
@@ -602,7 +617,7 @@ local lsp_kind_icons_color = {
   Snippet = c.red,
   String = c.green,
   Struct = c.purple,
-  Text = c.Green,
+  Text = c.green,
   TypeParameter = c.red,
   Unit = c.green,
   Value = c.orange,
@@ -614,6 +629,7 @@ function M.setup()
   -- define cmp and aerial kind highlights with lsp_kind_icons_color
   for kind, color in pairs(lsp_kind_icons_color) do
     hl.plugins.cmp["CmpItemKind" .. kind] = { fg = color, fmt = cfg.cmp_itemkind_reverse and "reverse" }
+    hl.plugins.cmp["CmpItemMenu" .. kind] = { fg = adjust_color(color, 0.65), fmt = "bold" }
     hl.plugins.outline["Aerial" .. kind .. "Icon"] = { fg = color }
     hl.plugins.navic["NavicIcons" .. kind] = { fg = color, bg = c.bg_d }
   end
