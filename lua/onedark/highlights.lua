@@ -1,24 +1,9 @@
 local c = require("onedark.colors")
 local cfg = vim.g.onedark_config
+local adjust_color = require("onedark.utils").adjust_color
 
 local M = {}
 local hl = { langs = {}, plugins = {} }
-
-local function adjust_color(color, factor)
-  local r = tonumber(color:sub(2, 3), 16)
-  local g = tonumber(color:sub(4, 5), 16)
-  local b = tonumber(color:sub(6, 7), 16)
-
-  r = math.floor(r * factor)
-  g = math.floor(g * factor)
-  b = math.floor(b * factor)
-
-  if r > 255 then r = 255 end
-  if g > 255 then g = 255 end
-  if b > 255 then b = 255 end
-
-  return string.format("#%02X%02X%02X", r, g, b)
-end
 
 local function vim_highlights(highlights)
   for group_name, group_settings in pairs(highlights) do
@@ -110,7 +95,7 @@ hl.common = {
   WinSeparator = { fg = c.bg1, bg = c.none },
   Visual = { bg = c.bg3 },
   VisualNOS = { fg = c.none, bg = c.bg2, fmt = "underline" },
-  QuickFixLine = { bg = c.dark_purple, fmt = "italic" },
+  QuickFixLine = { bg = adjust_color(c.purple, 0.65), fmt = "italic" },
   Debug = { fg = c.yellow },
   debugPC = { fg = c.bg0, bg = c.green },
   debugBreakpoint = { fg = c.bg0, bg = c.red },
@@ -275,14 +260,14 @@ hl.plugins.lsp = {
   DiagnosticInfo = { fg = c.cyan },
   DiagnosticWarn = { fg = c.yellow },
 
-  DiagnosticVirtualTextError = { bg = cfg.diagnostics.background and c.bg_red or c.none, fg = c.red },
-  DiagnosticVirtualTextWarn = { bg = cfg.diagnostics.background and c.bg_yellow or c.none, fg = c.yellow },
-  DiagnosticVirtualTextInfo = { bg = cfg.diagnostics.background and c.bg_purple or c.none, fg = c.purple },
-  DiagnosticVirtualTextHint = { bg = cfg.diagnostics.background and c.bg_cyan or c.none, fg = c.cyan },
+  DiagnosticVirtualTextError = { bg = cfg.diagnostics.background and adjust_color(c.red, 0.2) or c.none, fg = adjust_color(c.red, 1.2) },
+  DiagnosticVirtualTextWarn = { bg = cfg.diagnostics.background and adjust_color(c.yellow, 0.2) or c.none, fg = adjust_color(c.yellow, 1.2) },
+  DiagnosticVirtualTextInfo = { bg = cfg.diagnostics.background and adjust_color(c.purple, 0.2) or c.none, fg = c.purple },
+  DiagnosticVirtualTextHint = { bg = cfg.diagnostics.background and adjust_color(c.cyan, 0.2) or c.none, fg = c.cyan },
 
   DiagnosticUnderlineError = { fmt = cfg.diagnostics.undercurl and "undercurl" or "underline", sp = c.red },
-  DiagnosticUnderlineHint = { fmt = cfg.diagnostics.undercurl and "undercurl" or "underline", sp = c.purple },
-  DiagnosticUnderlineInfo = { fmt = cfg.diagnostics.undercurl and "undercurl" or "underline", sp = c.blue },
+  DiagnosticUnderlineHint = { fmt = cfg.diagnostics.undercurl and "undercurl" or "underline", sp = c.cyan },
+  DiagnosticUnderlineInfo = { fmt = cfg.diagnostics.undercurl and "undercurl" or "underline", sp = c.purple },
   DiagnosticUnderlineWarn = { fmt = cfg.diagnostics.undercurl and "undercurl" or "underline", sp = c.yellow },
   DiagnosticUnnecessary = { fg = c.grey, fmt = cfg.diagnostics.undercurl and "undercurl" or "underline" },
 
@@ -365,7 +350,7 @@ hl.plugins.gitsigns = {
   GitSignsDelete = colors.Red,
   GitSignsDeleteLn = colors.Red,
   GitSignsDeleteNr = colors.Red,
-  GitSignsCurrentLineBlame = { fg = c.dark_cyan, fmt = "italic" },
+  GitSignsCurrentLineBlame = { fg = adjust_color(c.cyan, 0.8), fmt = "italic" },
 }
 
 hl.plugins.neo_tree = {
@@ -419,8 +404,8 @@ hl.plugins.telescope = {
 hl.plugins.edgy = {
   EdgyWinbar = { bg = c.bg_d },
   EdgyTitle = { bg = c.bg_d, fg = c.purple, fmt = "bold" },
-  EdgyIcon = { bg = c.dark_purple, fg = c.purple },
-  EdgyIconActive = { bg = c.dark_purple, fg = c.purple },
+  EdgyIcon = { bg = adjust_color(c.purple, 0.5), fg = c.purple },
+  EdgyIconActive = { bg = adjust_color(c.purple, 0.5), fg = c.purple },
   EdgyNormal = { bg = c.sidebar },
 }
 
@@ -455,7 +440,7 @@ hl.plugins.trouble = {
   TroubleTextWarning = { fg = c.yellow },
   TroubleTextHint = { fg = c.purple },
   TroubleTextInformation = { fg = c.cyan },
-  TroublePreview = { bg = c.dark_purple },
+  TroublePreview = { bg = adjust_color(c.purple, 0.4) },
 }
 
 hl.plugins.rainbow_delimiters = {
@@ -491,11 +476,11 @@ hl.plugins.indent_blankline = {
 hl.plugins.illuminati = {
   IlluminatedWordText = { bg = c.bg2, fmt = "NONE" },
   IlluminatedWordRead = { bg = c.bg2, fmt = "NONE" },
-  IlluminatedWordWrite = { bg = c.dark_purple, fmt = "NONE" },
+  IlluminatedWordWrite = { bg = adjust_color(c.purple, 0.5), fmt = "NONE" },
 }
 
 hl.plugins.matchup = {
-  MatchWord = { bg = c.dark_purple, fmt = "underline" },
+  MatchWord = { bg = adjust_color(c.purple, 0.5), fmt = "underline" },
   MatchParen = { fmt = "inverse" },
   MatchParenCur = { fmt = "italic,bold" },
 }
