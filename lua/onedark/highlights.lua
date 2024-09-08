@@ -1,24 +1,10 @@
 local c = require("onedark.colors")
 local cfg = vim.g.onedark_config
+local adjust_color = require("onedark.utils").adjust_color
+local blend_colors = require("onedark.utils").blend_colors
 
 local M = {}
 local hl = { langs = {}, plugins = {} }
-
-local function adjust_color(color, factor)
-  local r = tonumber(color:sub(2, 3), 16)
-  local g = tonumber(color:sub(4, 5), 16)
-  local b = tonumber(color:sub(6, 7), 16)
-
-  r = math.floor(r * factor)
-  g = math.floor(g * factor)
-  b = math.floor(b * factor)
-
-  if r > 255 then r = 255 end
-  if g > 255 then g = 255 end
-  if b > 255 then b = 255 end
-
-  return string.format("#%02X%02X%02X", r, g, b)
-end
 
 local function vim_highlights(highlights)
   for group_name, group_settings in pairs(highlights) do
@@ -37,7 +23,7 @@ end
 
 local colors = {
   Fg = { fg = c.fg },
-  LightGrey = { fg = c.light_grey },
+  LightGrey = { fg = adjust_color(c.grey, 1.5) },
   Grey = { fg = c.grey },
   Red = { fg = c.red },
   Cyan = { fg = c.cyan },
@@ -48,15 +34,15 @@ local colors = {
   Purple = { fg = c.purple },
 }
 hl.common = {
-  Normal = { fg = c.fg, bg = cfg.transparent and c.none or c.bg0 },
-  Sidebar = { bg = c.sidebar },
-  Terminal = { fg = c.fg, bg = cfg.transparent and c.none or c.bg0 },
-  WinBar = { bg = c.bg_d },
-  WinBarNC = { bg = c.bg_d },
-  InactiveWinBar = { bg = c.bg_d, fg = c.grey, fmt = "italic" },
-  EndOfBuffer = { fg = cfg.ending_tildes and c.bg2 or c.bg0, bg = cfg.transparent and c.none or c.bg0 },
+  Normal = { fg = c.fg, bg = cfg.transparent and c.none or c.bg },
+  Sidebar = { bg = adjust_color(c.bg, 0.85) },
+  Terminal = { fg = c.fg, bg = cfg.transparent and c.none or c.bg },
+  WinBar = { bg = adjust_color(c.grey, 0.4) },
+  WinBarNC = { bg = adjust_color(c.grey, 0.4) },
+  InactiveWinBar = { bg = adjust_color(c.bg, 0.9), fg = c.grey, fmt = "italic" },
+  EndOfBuffer = { fg = cfg.ending_tildes and adjust_color(c.grey, 0.6) or c.bg, bg = cfg.transparent and c.none or c.bg0 },
   FoldColumn = { fg = c.grey, bg = c.none, fmt = "nocombine" },
-  Folded = { fg = c.fg, bg = cfg.transparent and c.none or c.bg2 },
+  Folded = { fg = c.fg, bg = cfg.transparent and c.none or adjust_color(c.purple, 0.3) },
   SignColumn = { fg = c.fg, bg = c.none, fmt = "nocombine" },
   ToolbarLine = { fg = c.fg },
   Cursor = { fmt = "reverse" },
@@ -64,16 +50,16 @@ hl.common = {
   iCursor = { fmt = "reverse" },
   lCursor = { fmt = "reverse" },
   CursorIM = { fmt = "reverse" },
-  CursorColumn = { bg = c.bg1 },
-  CursorLine = { bg = c.bg1 },
-  ColorColumn = { bg = c.bg1 },
+  CursorColumn = { bg = adjust_color(c.grey, 0.6) },
+  CursorLine = { bg = adjust_color(c.grey, 0.45) },
+  ColorColumn = { bg = adjust_color(c.grey, 0.45) },
   CursorLineNr = { fg = c.purple, fmt = "italic,bold" },
   LineNr = { fg = c.grey },
-  Conceal = { fg = c.grey, bg = c.bg1 },
-  DiffAdd = { fg = c.none, bg = c.diff_add },
-  DiffChange = { fg = c.none, bg = c.diff_change },
-  DiffDelete = { fg = c.none, bg = c.diff_delete },
-  DiffText = { fg = c.none, bg = c.diff_text },
+  Conceal = { fg = c.grey, bg = adjust_color(c.grey, 0.6) },
+  DiffAdd = { fg = c.none, bg = adjust_color(c.green, 0.3) },
+  DiffChange = { fg = c.none, bg = adjust_color(c.blue, 0.3) },
+  DiffDelete = { fg = c.none, bg = adjust_color(c.red, 0.3) },
+  DiffText = { fg = c.none, bg = adjust_color(c.cyan, 0.5) },
   DiffAdded = colors.Green,
   DiffRemoved = colors.Red,
   DiffFile = colors.Cyan,
@@ -82,41 +68,68 @@ hl.common = {
   ErrorMsg = { fg = c.red, fmt = "bold" },
   WarningMsg = { fg = c.yellow, fmt = "bold" },
   MoreMsg = { fg = c.blue, fmt = "italic" },
-  CurSearch = { fg = c.bg0, bg = c.orange },
-  IncSearch = { fg = c.bg0, bg = c.orange },
-  Search = { fg = c.bg0, bg = c.light_yellow },
-  Substitute = { fg = c.bg0, bg = c.green },
+  CurSearch = { fg = c.bg, bg = c.orange },
+  IncSearch = { fg = c.bg, bg = c.orange },
+  Search = { fg = c.bg, bg = adjust_color(c.yellow, 1.4) },
+  Substitute = { fg = c.bg, bg = c.green },
   MatchParen = { fg = c.none, bg = c.grey },
   NonText = { fg = c.grey, fmt = "nocombine" },
-  Whitespace = { fg = c.bg2 },
+  Whitespace = { fg = adjust_color(c.grey, 0.6) },
   SpecialKey = { fg = c.grey },
-  Pmenu = { fg = c.fg, bg = c.bg_cyan },
-  PmenuSbar = { fg = c.none, bg = c.bg1 },
-  PmenuSel = { fg = c.black, bg = c.bg_blue },
-  WildMenu = { fg = c.bg0, bg = c.blue },
+  Pmenu = { fg = c.fg, bg = blend_colors(c.bg, c.blue, 0.2) },
+  PmenuSbar = { fg = c.none, bg = adjust_color(c.grey, 0.6) },
+  PmenuSel = { fg = c.black, bg = c.blue },
+  WildMenu = { fg = c.bg, bg = c.blue },
   PmenuThumb = { fg = c.none, bg = c.grey },
   Question = { fg = c.yellow },
   SpellBad = { fg = c.none, fmt = "undercurl", sp = c.red },
   SpellCap = { fg = c.none, fmt = "undercurl", sp = c.yellow },
   SpellLocal = { fg = c.none, fmt = "undercurl", sp = c.blue },
   SpellRare = { fg = c.none, fmt = "undercurl", sp = c.purple },
-  StatusLine = { fg = c.fg, bg = c.none },
-  StatusLineTerm = { fg = c.fg, bg = c.bg2 },
-  StatusLineNC = { fg = c.grey, bg = c.none },
-  StatusLineTermNC = { fg = c.grey, bg = c.bg1 },
-  TabLine = { fg = c.fg, bg = c.bg1 },
-  TabLineFill = { fg = c.grey, bg = c.bg1 },
-  TabLineSel = { fg = c.bg0, bg = c.fg },
-  WinSeparator = { fg = c.bg1, bg = c.none },
-  Visual = { bg = c.bg3 },
-  VisualNOS = { fg = c.none, bg = c.bg2, fmt = "underline" },
-  QuickFixLine = { bg = c.dark_purple, fmt = "italic" },
+
+  StatusLine = { fg = c.fg, bg = adjust_color(c.grey, 0.4) },
+  StatusLineNC = { fg = c.fg, bg = adjust_color(c.grey, 0.4) },
+  StatusLineTerm = { fg = c.fg, bg = adjust_color(c.grey, 0.4) },
+  StatusLineTermNC = { fg = c.grey, bg = adjust_color(c.grey, 0.4) },
+
+  StatusLineModeNormal = { fg = c.black, bg = c.red, fmt = "bold" },
+  StatusLineModeSeparatorNormal = { fg = c.red, bg = adjust_color(c.grey, 0.6) },
+  StatusLineModeInsert = { fg = c.black, bg = c.blue, fmt = "bold" },
+  StatusLineModeSeparatorInsert = { fg = c.blue, bg = adjust_color(c.grey, 0.6) },
+  StatusLineModeVisual = { fg = c.black, bg = c.purple, fmt = "bold" },
+  StatusLineModeSeparatorVisual = { fg = c.purple, bg = adjust_color(c.grey, 0.6) },
+  StatusLineModeCommand = { fg = c.black, bg = c.orange, fmt = "bold" },
+  StatusLineModeSeparatorCommand = { fg = c.orange, bg = adjust_color(c.grey, 0.6) },
+  StatusLineModePending = { fg = c.black, bg = c.cyan, fmt = "bold" },
+  StatusLineModeSeparatorPending = { fg = c.cyan, bg = adjust_color(c.grey, 0.6) },
+
+  StatusLineTitle = { fg = c.fg, bg = adjust_color(c.grey, 0.4) },
+
+  StatusLineEncoding = { fg = c.fg, bg = adjust_color(c.grey, 0.4) },
+
+  StatusLineFiletype = { fg = c.fg, bg = adjust_color(c.grey, 0.6) },
+  StatusLineFiletypeSeparator = { fg = c.red, bg = adjust_color(c.grey, 0.6) },
+
+  StatusLinePosition = { fg = c.black, bg = c.red },
+  StatusLinePositionSeparator = { fg = c.red, bg = adjust_color(c.grey, 0.4) },
+
+  StatusLineGit = { fg = c.green, bg = adjust_color(c.grey, 0.6) },
+  StatusLineGitSeparator = { fg = adjust_color(c.grey, 0.6), bg = adjust_color(c.grey, 0.4) },
+
+  TabLine = { fg = c.fg, bg = adjust_color(c.grey, 0.6) },
+  TabLineFill = { fg = c.grey, bg = adjust_color(c.grey, 0.6) },
+  TabLineSel = { fg = c.bg, bg = c.fg },
+  WinSeparator = { fg = adjust_color(c.grey, 0.6), bg = c.none },
+  VertSplit = { fg = adjust_color(c.grey, 0.6), bg = c.none },
+  Visual = { bg = adjust_color(c.blue, 0.4) },
+  VisualNOS = { fg = c.none, bg = adjust_color(c.blue, 0.4), fmt = "underline" },
+  QuickFixLine = { bg = adjust_color(c.purple, 0.6), fmt = "italic" },
   Debug = { fg = c.yellow },
-  debugPC = { fg = c.bg0, bg = c.green },
-  debugBreakpoint = { fg = c.bg0, bg = c.red },
-  ToolbarButton = { fg = c.bg0, bg = c.bg_blue },
-  FloatBorder = { fg = c.bg2, bg = c.bg0 },
-  NormalFloat = { fg = c.fg, bg = c.bg1 },
+  debugPC = { fg = c.bg, bg = c.green },
+  debugBreakpoint = { fg = c.bg, bg = c.red },
+  ToolbarButton = { fg = c.bg, bg = blend_colors(c.bg, c.blue, 0.4) },
+  FloatBorder = { fg = adjust_color(c.grey, 0.6), bg = c.bg },
+  NormalFloat = { fg = c.fg, bg = adjust_color(c.bg, 1.4) },
 }
 
 hl.syntax = {
@@ -149,7 +162,7 @@ hl.syntax = {
   Operator = colors.Purple,
   Title = colors.Cyan,
   Tag = colors.Green,
-  Delimiter = colors.LightGrey,
+  Delimiter = { fg = adjust_color(c.grey, 0.6) },
   Comment = { fg = c.grey, fmt = cfg.code_style.comments },
   SpecialComment = { fg = c.grey, fmt = cfg.code_style.comments },
   Todo = { fg = c.red, fmt = cfg.code_style.comments },
@@ -234,7 +247,7 @@ hl.treesitter = {
   ["@markup.link.url"] = colors.Cyan,
   ["@markup.link.label"] = colors.Orange,
 
-  TreesitterContext = { bg = c.bg_cyan },
+  TreesitterContext = { bg = blend_colors(c.bg, c.cyan, 0.2) },
   TreesitterContextLineNumber = { fg = c.cyan, fmt = "bold,italic" },
 }
 
@@ -275,20 +288,20 @@ hl.plugins.lsp = {
   DiagnosticInfo = { fg = c.cyan },
   DiagnosticWarn = { fg = c.yellow },
 
-  DiagnosticVirtualTextError = { bg = cfg.diagnostics.background and c.bg_red or c.none, fg = c.red },
-  DiagnosticVirtualTextWarn = { bg = cfg.diagnostics.background and c.bg_yellow or c.none, fg = c.yellow },
-  DiagnosticVirtualTextInfo = { bg = cfg.diagnostics.background and c.bg_purple or c.none, fg = c.purple },
-  DiagnosticVirtualTextHint = { bg = cfg.diagnostics.background and c.bg_cyan or c.none, fg = c.cyan },
+  DiagnosticVirtualTextError = { bg = cfg.diagnostics.background and adjust_color(c.red, 0.2) or c.none, fg = adjust_color(c.red, 1.2) },
+  DiagnosticVirtualTextWarn = { bg = cfg.diagnostics.background and adjust_color(c.yellow, 0.2) or c.none, fg = adjust_color(c.yellow, 1.2) },
+  DiagnosticVirtualTextInfo = { bg = cfg.diagnostics.background and adjust_color(c.purple, 0.2) or c.none, fg = c.purple },
+  DiagnosticVirtualTextHint = { bg = cfg.diagnostics.background and adjust_color(c.cyan, 0.2) or c.none, fg = c.cyan },
 
   DiagnosticUnderlineError = { fmt = cfg.diagnostics.undercurl and "undercurl" or "underline", sp = c.red },
-  DiagnosticUnderlineHint = { fmt = cfg.diagnostics.undercurl and "undercurl" or "underline", sp = c.purple },
-  DiagnosticUnderlineInfo = { fmt = cfg.diagnostics.undercurl and "undercurl" or "underline", sp = c.blue },
+  DiagnosticUnderlineHint = { fmt = cfg.diagnostics.undercurl and "undercurl" or "underline", sp = c.cyan },
+  DiagnosticUnderlineInfo = { fmt = cfg.diagnostics.undercurl and "undercurl" or "underline", sp = c.purple },
   DiagnosticUnderlineWarn = { fmt = cfg.diagnostics.undercurl and "undercurl" or "underline", sp = c.yellow },
   DiagnosticUnnecessary = { fg = c.grey, fmt = cfg.diagnostics.undercurl and "undercurl" or "underline" },
 
-  LspReferenceText = { bg = c.bg2 },
-  LspReferenceWrite = { bg = c.bg2 },
-  LspReferenceRead = { bg = c.bg2 },
+  LspReferenceText = { bg = adjust_color(c.grey, 0.6) },
+  LspReferenceWrite = { bg = adjust_color(c.grey, 0.6) },
+  LspReferenceRead = { bg = adjust_color(c.grey, 0.6) },
 
   LspCodeLens = { fg = c.grey, fmt = cfg.code_style.comments },
   LspInlayHint = { fg = c.grey },
@@ -314,7 +327,7 @@ hl.plugins.cmp = {
   CmpItemAbbrMatch = colors.Cyan,
   CmpItemAbbrMatchFuzzy = colors.Cyan,
   CmpItemMenu = colors.LightGrey,
-  CmpBorder = { fg = c.bg2, bg = c.bg },
+  CmpBorder = { fg = adjust_color(c.grey, 0.6), bg = c.bg },
   CmpWin = { bg = c.bg },
 }
 
@@ -324,10 +337,13 @@ hl.plugins.whichkey = {
   WhichKeyDesc = colors.Blue,
   WhichKeyGroup = colors.Orange,
   WhichKeySeparator = colors.Green,
-  WhichKeyBorder = { fg = c.bg2 },
+  WhichKeyBorder = { fg = adjust_color(c.bg, 0.6) },
 }
 
--- comment
+hl.plugins.bqf = {
+  BqfPreviewFloat = { fg = c.fg, bg = adjust_color(c.bg, 1.4) },
+}
+
 hl.plugins.diffview = {
   DiffviewFilePanelTitle = { fg = c.blue, fmt = "bold" },
   DiffviewFilePanelCounter = { fg = c.purple, fmt = "bold" },
@@ -365,22 +381,22 @@ hl.plugins.gitsigns = {
   GitSignsDelete = colors.Red,
   GitSignsDeleteLn = colors.Red,
   GitSignsDeleteNr = colors.Red,
-  GitSignsCurrentLineBlame = { fg = c.dark_cyan, fmt = "italic" },
+  GitSignsCurrentLineBlame = { fg = adjust_color(c.cyan, 0.8), fmt = "italic" },
 }
 
 hl.plugins.neo_tree = {
   NeoTreeNormal = hl.common.Sidebar,
   NeoTreeNormalNC = hl.common.Sidebar,
   NeoTreeEndOfBuffer = hl.common.Sidebar,
-  NeoTreeVertSplit = { fg = c.bg1, bg = cfg.transparent and c.none or c.bg1 },
-  NeoTreeWinSeparator = { fg = c.bg1, bg = c.none },
+  NeoTreeVertSplit = { fg = adjust_color(c.grey, 0.6) },
+  NeoTreeWinSeparator = { fg = adjust_color(c.grey, 0.6), bg = c.none },
   NeoTreeRootName = { fg = c.orange, fmt = "bold" },
   NeoTreeGitAdded = colors.Green,
   NeoTreeGitDeleted = colors.Red,
   NeoTreeGitModified = colors.Yellow,
   NeoTreeGitConflict = { fg = c.red, fmt = "bold,italic" },
   NeoTreeGitUntracked = { fg = c.red, fmt = "italic" },
-  NeoTreeIndentMarker = { fg = c.bg2 },
+  NeoTreeIndentMarker = { fg = adjust_color(c.grey, 0.6) },
   NeoTreeSymbolicLinkTarget = colors.Purple,
 }
 
@@ -405,28 +421,28 @@ hl.plugins.neotest = {
 
 hl.plugins.telescope = {
   TelescopePromptTitle = { fg = c.cyan },
-  TelescopeBorder = { fg = c.bg2 },
-  TelescopePromptBorder = { fg = c.bg2 },
-  TelescopeResultsBorder = { fg = c.bg2 },
-  TelescopePreviewBorder = { fg = c.bg2 },
+  TelescopeBorder = { fg = adjust_color(c.grey, 0.6) },
+  TelescopePromptBorder = { fg = adjust_color(c.grey, 0.6) },
+  TelescopeResultsBorder = { fg = adjust_color(c.grey, 0.6) },
+  TelescopePreviewBorder = { fg = adjust_color(c.grey, 0.6) },
   TelescopeMatching = { fg = c.orange, fmt = "bold" },
   TelescopePromptPrefix = colors.Green,
-  TelescopeSelection = { bg = c.bg2 },
+  TelescopeSelection = { bg = adjust_color(c.grey, 0.6) },
   TelescopeSelectionCaret = colors.Yellow,
   TelescopePromptCounter = colors.Blue,
 }
 
 hl.plugins.edgy = {
-  EdgyWinbar = { bg = c.bg_d },
-  EdgyTitle = { bg = c.bg_d, fg = c.purple, fmt = "bold" },
-  EdgyIcon = { bg = c.dark_purple, fg = c.purple },
-  EdgyIconActive = { bg = c.dark_purple, fg = c.purple },
-  EdgyNormal = { bg = c.sidebar },
+  EdgyWinbar = { bg = adjust_color(c.grey, 0.4) },
+  EdgyTitle = { bg = adjust_color(c.grey, 0.4), fg = c.purple, fmt = "bold" },
+  EdgyIcon = { bg = adjust_color(c.purple, 0.5), fg = c.purple },
+  EdgyIconActive = { bg = adjust_color(c.purple, 0.5), fg = c.purple },
+  EdgyNormal = { bg = adjust_color(c.bg, 0.7) },
 }
 
 hl.plugins.ufo = {
-  UfoCursorFoldedLine = { bg = c.bg2, fmt = "bold" },
-  UfoFoldedBg = { bg = c.bg_purple },
+  UfoCursorFoldedLine = { bg = adjust_color(c.grey, 0.6), fmt = "bold" },
+  UfoFoldedBg = { bg = blend_colors(c.bg, c.purple, 0.3) },
 }
 
 hl.plugins.dashboard = {
@@ -437,25 +453,26 @@ hl.plugins.dashboard = {
 }
 
 hl.plugins.outline = {
-  FocusedSymbol = { fg = c.purple, bg = c.bg2, fmt = "bold" },
-  AerialLine = { fg = c.purple, bg = c.bg2, fmt = "bold" },
-  SymbolsOutlineBg = { bg = c.sidebar },
+  FocusedSymbol = { fg = c.purple, bg = adjust_color(c.grey, 0.6), fmt = "bold" },
+  AerialLine = { fg = c.purple, bg = adjust_color(c.grey, 0.6), fmt = "bold" },
+  SymbolsOutlineBg = { bg = adjust_color(c.bg, 0.7) },
+  OutlineCurrent = { fg = c.green, bg = c.none, fmt = "italic" },
 }
 
 hl.plugins.navic = {
-  NavicText = { fg = c.fg, bg = c.bg_d },
-  NavicSeparator = { fg = c.light_grey, bg = c.bg_d },
+  NavicText = { fg = c.fg, bg = adjust_color(c.bg, 0.9) },
+  NavicSeparator = { fg = c.light_grey, bg = adjust_color(c.bg, 0.9) },
 }
 
 hl.plugins.trouble = {
-  TroubleNormal = { bg = c.sidebar },
-  TroubleNormalNC = { bg = c.sidebar },
+  TroubleNormal = { bg = adjust_color(c.bg, 0.7) },
+  TroubleNormalNC = { bg = adjust_color(c.bg, 0.7) },
   TroubleText = { bg = c.none },
   TroubleTextError = { fg = c.red },
   TroubleTextWarning = { fg = c.yellow },
   TroubleTextHint = { fg = c.purple },
   TroubleTextInformation = { fg = c.cyan },
-  TroublePreview = { bg = c.dark_purple },
+  TroublePreview = { bg = adjust_color(c.purple, 0.4) },
 }
 
 hl.plugins.rainbow_delimiters = {
@@ -475,27 +492,29 @@ hl.plugins.indent_blankline = {
   IndentBlanklineIndent4 = colors.LightGrey,
   IndentBlanklineIndent5 = colors.Purple,
   IndentBlanklineIndent6 = colors.Red,
-  IndentBlanklineChar = { fg = c.bg2, fmt = "nocombine" },
+  IndentBlanklineChar = { fg = adjust_color(c.grey, 0.6), fmt = "nocombine" },
   IndentBlanklineContextChar = { fg = c.grey, fmt = "nocombine" },
   IndentBlanklineContextStart = { sp = c.grey, fmt = "underline" },
   IndentBlanklineContextSpaceChar = { fmt = "nocombine" },
 
   -- Ibl v3
-  IblIndent = { fg = c.bg2, fmt = "nocombine" },
+  IblIndent = { fg = adjust_color(c.grey, 0.6), fmt = "nocombine" },
   IblWhitespace = { fg = c.grey, fmt = "nocombine" },
   IblScope = { fg = c.purple, fmt = "nocombine" },
 
   MiniIndentscopeSymbol = { fg = c.purple },
+  IndentLine = { fg = adjust_color(c.grey, 0.6), fmt = "nocombine" },
+  IndentLineCurrent = { fg = c.purple, fmt = "nocombine" },
 }
 
 hl.plugins.illuminati = {
-  IlluminatedWordText = { bg = c.bg2, fmt = "NONE" },
-  IlluminatedWordRead = { bg = c.bg2, fmt = "NONE" },
-  IlluminatedWordWrite = { bg = c.dark_purple, fmt = "NONE" },
+  IlluminatedWordText = { bg = adjust_color(c.grey, 0.6), fmt = "NONE" },
+  IlluminatedWordRead = { bg = adjust_color(c.grey, 0.6), fmt = "NONE" },
+  IlluminatedWordWrite = { bg = adjust_color(c.purple, 0.5), fmt = "NONE" },
 }
 
 hl.plugins.matchup = {
-  MatchWord = { bg = c.dark_purple, fmt = "underline" },
+  MatchWord = { bg = adjust_color(c.purple, 0.5), fmt = "underline" },
   MatchParen = { fmt = "inverse" },
   MatchParenCur = { fmt = "italic,bold" },
 }
@@ -520,7 +539,7 @@ hl.langs.cpp = {
 }
 
 hl.langs.css = {
-  ["@variable.css"] = { fg = c.light_yellow, fmt = cfg.code_style.variables },
+  ["@variable.css"] = { fg = adjust_color(c.yellow, 1.4), fmt = cfg.code_style.variables },
 }
 
 hl.langs.markdown = {
@@ -551,6 +570,9 @@ hl.langs.markdown = {
   markdownUrl = { fg = c.blue, fmt = "underline" },
   markdownUrlDelimiter = colors.Grey,
   markdownUrlTitleDelimiter = colors.Green,
+
+  ["@checked_list_item.markdown"] = { fg = c.grey, fmt = "strikethrough" },
+  ["@markup.list.checked.markdown"] = { fg = c.grey, fmt = "strikethrough" },
 }
 
 hl.langs.tex = {
@@ -584,6 +606,10 @@ hl.langs.vim = {
   vimMapRhs = colors.Blue,
   vimVar = { fg = c.fg, fmt = cfg.code_style.variables },
   vimCommentTitle = { fg = c.light_grey, fmt = cfg.code_style.comments },
+}
+
+hl.plugins.misc = {
+  Hlargs = { fg = adjust_color(c.red, 1.8), fmt = "bold,italic" },
 }
 
 local lsp_kind_icons_color = {
@@ -631,7 +657,7 @@ function M.setup()
     hl.plugins.cmp["CmpItemKind" .. kind] = { fg = color, fmt = cfg.cmp_itemkind_reverse and "reverse" }
     hl.plugins.cmp["CmpItemMenu" .. kind] = { fg = adjust_color(color, 0.65), fmt = "bold" }
     hl.plugins.outline["Aerial" .. kind .. "Icon"] = { fg = color }
-    hl.plugins.navic["NavicIcons" .. kind] = { fg = color, bg = c.bg_d }
+    hl.plugins.navic["NavicIcons" .. kind] = { fg = color, bg = adjust_color(c.bg, 0.9) }
   end
 
   vim_highlights(hl.common)
