@@ -162,10 +162,11 @@ hl.syntax = {
   Operator = colors.Purple,
   Title = colors.Cyan,
   Tag = colors.Green,
-  Delimiter = { fg = adjust_color(c.grey, 0.6) },
+  Delimiter = colors.LightGrey,
   Comment = { fg = c.grey, fmt = cfg.code_style.comments },
   SpecialComment = { fg = c.grey, fmt = cfg.code_style.comments },
   Todo = { fg = c.red, fmt = cfg.code_style.comments },
+  jsonBraces = colors.LightGrey,
 }
 
 -- i always use neovim >= 0.9
