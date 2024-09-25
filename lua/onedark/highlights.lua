@@ -611,6 +611,8 @@ hl.langs.vim = {
 
 hl.plugins.misc = {
   Hlargs = { fg = adjust_color(c.red, 1.8), fmt = "bold,italic" },
+  YankyYanked = { bg = adjust_color(c.green, 0.4), fmt = "italic" },
+  YankyPut = { bg = adjust_color(c.purple, 0.4), fmt = "bold" },
 }
 
 local lsp_kind_icons_color = {
