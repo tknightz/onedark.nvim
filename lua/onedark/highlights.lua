@@ -59,7 +59,7 @@ hl.common = {
   DiffAdd = { fg = c.none, bg = adjust_color(c.green, 0.3) },
   DiffChange = { fg = c.none, bg = adjust_color(c.blue, 0.3) },
   DiffDelete = { fg = c.none, bg = adjust_color(c.red, 0.3) },
-  DiffText = { fg = c.none, bg = adjust_color(c.cyan, 0.5) },
+  DiffText = { fg = c.none, bg = adjust_color(c.blue, 0.4) },
   DiffAdded = colors.Green,
   DiffRemoved = colors.Red,
   DiffFile = colors.Cyan,
@@ -330,6 +330,18 @@ hl.plugins.cmp = {
   CmpItemMenu = colors.LightGrey,
   CmpBorder = { fg = adjust_color(c.grey, 0.6), bg = c.bg },
   CmpWin = { bg = c.bg },
+
+  BlinkCmpLabel = colors.Fg,
+  BlinkCmpLabelDeprecated = { fg = c.light_grey, fmt = "strikethrough" },
+  BlinkCmpLabelMatch = colors.Cyan,
+  BlinkCmpMenu = { fg = c.fg, bg = c.bg },
+  BlinkCmpMenuBorder = { fg = c.purple },
+  BlinkCmpMenuSelection = { bg = adjust_color(c.purple, 0.3) },
+
+  BlinkCmpDocBorder = { fg = c.orange },
+  BlinkCmpGhostText = { fg = c.grey, fmt = "italic" },
+
+  BlinkCmpSignatureHelpBorder = { fg = c.orange },
 }
 
 hl.plugins.whichkey = {
