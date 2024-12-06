@@ -40,7 +40,10 @@ hl.common = {
   WinBar = { bg = adjust_color(c.grey, 0.4) },
   WinBarNC = { bg = adjust_color(c.grey, 0.4) },
   InactiveWinBar = { bg = adjust_color(c.bg, 0.9), fg = c.grey, fmt = "italic" },
-  EndOfBuffer = { fg = cfg.ending_tildes and adjust_color(c.grey, 0.6) or c.bg, bg = cfg.transparent and c.none or c.bg0 },
+  EndOfBuffer = {
+    fg = cfg.ending_tildes and adjust_color(c.grey, 0.6) or c.bg,
+    bg = cfg.transparent and c.none or c.bg0,
+  },
   FoldColumn = { fg = c.grey, bg = c.none, fmt = "nocombine" },
   Folded = { fg = c.fg, bg = cfg.transparent and c.none or adjust_color(c.purple, 0.3) },
   SignColumn = { fg = c.fg, bg = c.none, fmt = "nocombine" },
@@ -128,7 +131,8 @@ hl.common = {
   debugPC = { fg = c.bg, bg = c.green },
   debugBreakpoint = { fg = c.bg, bg = c.red },
   ToolbarButton = { fg = c.bg, bg = blend_colors(c.bg, c.blue, 0.4) },
-  FloatBorder = { fg = adjust_color(c.grey, 0.6), bg = c.bg },
+  -- FloatBorder = { fg = adjust_color(c.grey, 0.6), bg = c.bg },
+  FloatBorder = { fg = c.purple, bg = c.bg },
   NormalFloat = { fg = c.fg, bg = adjust_color(c.bg, 1.4) },
 }
 
@@ -289,9 +293,18 @@ hl.plugins.lsp = {
   DiagnosticInfo = { fg = c.cyan },
   DiagnosticWarn = { fg = c.yellow },
 
-  DiagnosticVirtualTextError = { bg = cfg.diagnostics.background and adjust_color(c.red, 0.2) or c.none, fg = adjust_color(c.red, 1.2) },
-  DiagnosticVirtualTextWarn = { bg = cfg.diagnostics.background and adjust_color(c.yellow, 0.2) or c.none, fg = adjust_color(c.yellow, 1.2) },
-  DiagnosticVirtualTextInfo = { bg = cfg.diagnostics.background and adjust_color(c.purple, 0.2) or c.none, fg = c.purple },
+  DiagnosticVirtualTextError = {
+    bg = cfg.diagnostics.background and adjust_color(c.red, 0.2) or c.none,
+    fg = adjust_color(c.red, 1.2),
+  },
+  DiagnosticVirtualTextWarn = {
+    bg = cfg.diagnostics.background and adjust_color(c.yellow, 0.2) or c.none,
+    fg = adjust_color(c.yellow, 1.2),
+  },
+  DiagnosticVirtualTextInfo = {
+    bg = cfg.diagnostics.background and adjust_color(c.purple, 0.2) or c.none,
+    fg = c.purple,
+  },
   DiagnosticVirtualTextHint = { bg = cfg.diagnostics.background and adjust_color(c.cyan, 0.2) or c.none, fg = c.cyan },
 
   DiagnosticUnderlineError = { fmt = cfg.diagnostics.undercurl and "undercurl" or "underline", sp = c.red },
@@ -625,6 +638,24 @@ hl.plugins.misc = {
   Hlargs = { fg = adjust_color(c.red, 1.8), fmt = "bold,italic" },
   YankyYanked = { bg = adjust_color(c.green, 0.4), fmt = "italic" },
   YankyPut = { bg = adjust_color(c.purple, 0.4), fmt = "bold" },
+}
+
+hl.plugins.notify = {
+  NotifyERRORBorder = { fg = adjust_color(c.red, 0.3) },
+  NotifyWARNBorder = { fg = adjust_color(c.yellow, 0.3) },
+  NotifyINFOBorder = { fg = adjust_color(c.green, 0.3) },
+  NotifyDEBUGBorder = { fg = c.grey },
+  NotifyTRACEBorder = { fg = c.grey },
+  NotifyERRORIcon = { fg = c.red },
+  NotifyWARNIcon = { fg = c.yellow },
+  NotifyINFOIcon = { fg = c.green },
+  NotifyDEBUGIcon = { fg = c.grey },
+  NotifyTRACEIcon = { fg = c.purple },
+  NotifyERRORTitle = { fg = c.red },
+  NotifyWARNTitle = { fg = c.yellow },
+  NotifyINFOTitle = { fg = c.green },
+  NotifyDEBUGTitle = { fg = c.grey },
+  NotifyTRACETitle = { fg = c.purple },
 }
 
 local lsp_kind_icons_color = {
