@@ -1,21 +1,20 @@
 local colors = require("onedark.colors")
-local utils = require("onedark.utils")
 
 local preset = {
-  separator = utils.adjust_color(colors.bg, 0.85),
+  separator = colors.grey_1,
   modified = colors.green,
   duplicate = colors.bg_yellow,
   warning = colors.yellow,
-  info = utils.adjust_color(colors.purple, 0.8),
-  hint = utils.adjust_color(colors.cyan, 0.8),
-  error = utils.adjust_color(colors.red, 0.8),
+  info = colors.purple_4,
+  hint = colors.cyan_4,
+  error = colors.red_4,
   indicator = colors.red,
 }
 
 local colors = {
-  normal = { fg = colors.grey, bg = utils.blend_colors(colors.bg, colors.grey, 0.1) },
-  visible = { fg = utils.adjust_color(colors.grey, 1.2), bg = utils.blend_colors(colors.bg, colors.grey, 0.2) },
-  selected = { fg = colors.fg, bg = utils.blend_colors(colors.bg, colors.grey, 0.4) },
+  normal = { fg = colors.grey, bg = colors.grey_1 },
+  visible = { fg = colors.grey_6, bg = colors.grey_2 },
+  selected = { fg = colors.fg, bg = colors.grey_3 },
 }
 
 local highlights = {

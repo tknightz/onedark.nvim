@@ -3,7 +3,7 @@ local cfg = vim.g.onedark_config
 local adjust_color = require("onedark.utils").adjust_color
 
 local colors = {
-  bg = adjust_color(c.grey, 0.4),
+  bg = c.grey_2,
   fg = c.fg,
   red = c.red,
   green = c.green,

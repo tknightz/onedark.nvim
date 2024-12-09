@@ -5,7 +5,6 @@ local base_colors = {
     black = "#0c0e15",
     -- bg = "#141923",
     bg = "#101017",
-    light_yellow = "#ffd38b",
     fg = "#9baece",
     purple = "#c75ae8",
     green = "#8bcd5b",
@@ -33,13 +32,26 @@ local base_colors = {
 }
 
 local extended_dark = {}
-for name, val in ipairs(base_colors.dark) do
-  extended_dark["darkest_"..name] = adjust_color(val, 0.3)
-  extended_dark["dark_"..name] = adjust_color(val, 0.5)
-  extended_dark["light_"..name] = adjust_color(val, 1.2)
+for name, val in pairs(base_colors.dark) do
+  extended_dark[name.."_1"] = adjust_color(val, 0.2)
+  extended_dark[name.."_2"] = adjust_color(val, 0.4)
+  extended_dark[name.."_3"] = adjust_color(val, 0.6)
+  extended_dark[name.."_4"] = adjust_color(val, 0.8)
+  extended_dark[name.."_6"] = adjust_color(val, 1.2)
+  extended_dark[name.."_7"] = adjust_color(val, 1.5)
+end
+
+local extended_light = {}
+for name, val in pairs(base_colors.light) do
+  extended_light[name.."_1"] = adjust_color(val, 0.2)
+  extended_light[name.."_2"] = adjust_color(val, 0.4)
+  extended_light[name.."_3"] = adjust_color(val, 0.6)
+  extended_light[name.."_4"] = adjust_color(val, 0.8)
+  extended_light[name.."_6"] = adjust_color(val, 1.2)
+  extended_light[name.."_7"] = adjust_color(val, 1.5)
 end
 
 return {
   dark = vim.tbl_deep_extend("force", base_colors.dark, extended_dark),
-  light = base_colors.light,
+  light = vim.tbl_deep_extend("force", base_colors.light, extended_light),
 }
