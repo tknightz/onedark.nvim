@@ -35,12 +35,12 @@ hl.common = {
   Normal = { fg = c.fg, bg = cfg.transparent and c.none or c.bg },
   Sidebar = { bg = c.bg_4 },
   Terminal = { fg = c.fg, bg = cfg.transparent and c.none or c.bg },
-  WinBar = { bg = c.grey_2 },
-  WinBarNC = { bg = c.grey_3 },
+  WinBar = { bg = c.bg_6 },
+  WinBarNC = { bg = c.bg_6 },
   InactiveWinBar = { bg = c.bg_4, fg = c.grey, fmt = "italic" },
   EndOfBuffer = { fg = cfg.ending_tildes and c.grey_3 or c.bg, bg = cfg.transparent and c.none or c.bg0 },
   FoldColumn = { fg = c.grey, bg = c.none, fmt = "nocombine" },
-  Folded = { fg = c.fg, bg = cfg.transparent and c.none or c.grey_3 },
+  Folded = { bg = cfg.transparent and c.none or c.blue_1 },
   SignColumn = { fg = c.fg, bg = c.none, fmt = "nocombine" },
   ToolbarLine = { fg = c.fg },
   Cursor = { fmt = "reverse" },
@@ -49,12 +49,12 @@ hl.common = {
   lCursor = { fmt = "reverse" },
   CursorIM = { fmt = "reverse" },
   CursorColumn = { bg = c.grey_3 },
-  CursorLine = { bg = c.grey_2 },
+  CursorLine = { bg = c.cyan_1 },
   ColorColumn = { bg = c.grey_2 },
   CursorLineNr = { fg = c.purple, fmt = "italic,bold" },
   LineNr = { fg = c.grey },
   Conceal = { fg = c.grey, bg = c.grey_3 },
-  DiffAdd = { fg = c.none, bg = c.green_2 },
+  DiffAdd = { fg = c.none, bg = c.green_1 },
   DiffChange = { fg = c.none, bg = c.blue_1 },
   DiffDelete = { fg = c.none, bg = c.red_2 },
   DiffText = { fg = c.none, bg = c.blue_2 },
@@ -162,7 +162,7 @@ hl.syntax = {
   Tag = colors.Green,
   Delimiter = colors.LightGrey,
   Comment = { fg = c.grey, fmt = cfg.code_style.comments },
-  SpecialComment = { fg = c.grey, fmt = cfg.code_style.comments },
+  SpecialComment = { fg = c.grey_6, fmt = cfg.code_style.comments },
   Todo = { fg = c.red, fmt = cfg.code_style.comments },
   jsonBraces = colors.LightGrey,
 }
@@ -437,8 +437,8 @@ hl.plugins.telescope = {
 }
 
 hl.plugins.edgy = {
-  EdgyWinbar = { bg = c.grey_3 },
-  EdgyTitle = { bg = c.grey_3, fg = c.purple, fmt = "bold" },
+  EdgyWinbar = { bg = c.grey_2 },
+  EdgyTitle = { bg = c.grey_2, fg = c.purple, fmt = "bold" },
   EdgyIcon = { bg = c.purple_3, fg = c.purple },
   EdgyIconActive = { bg = c.purple_3, fg = c.purple },
   EdgyNormal = { bg = c.bg_4 },
@@ -511,14 +511,21 @@ hl.plugins.indent_blankline = {
   IndentLineCurrent = { fg = c.purple, fmt = "nocombine" },
 }
 
+hl.plugins.snacks = {
+  SnacksIndent = { fg = c.grey_3, fmt = "nocombine" },
+  SnacksIndentScope = { fg = c.purple, fmt = "nocombine" },
+  SnacksDashboardSpecial = { fg = c.blue, fmt = "bold" },
+  SnacksDashboardFile = { fg = c.blue, fmt = "bold" },
+}
+
 hl.plugins.illuminati = {
   IlluminatedWordText = { bg = c.grey_3, fmt = "NONE" },
   IlluminatedWordRead = { bg = c.grey_3, fmt = "NONE" },
-  IlluminatedWordWrite = { bg = c.purple_3, fmt = "NONE" },
+  IlluminatedWordWrite = { bg = c.purple_2, fmt = "NONE" },
 }
 
 hl.plugins.matchup = {
-  MatchWord = { bg = c.purple_3, fmt = "underline" },
+  MatchWord = { bg = c.purple_2, fmt = "underline" },
   MatchParen = { fmt = "inverse" },
   MatchParenCur = { fmt = "italic,bold" },
 }
@@ -655,51 +662,52 @@ hl.plugins.notify = {
 }
 
 local lsp_kind_icons_color = {
-  Default = c.purple,
-  Array = c.yellow,
-  Boolean = c.orange,
-  Class = c.yellow,
-  Color = c.green,
-  Constant = c.orange,
-  Constructor = c.blue,
-  Enum = c.purple,
-  EnumMember = c.yellow,
-  Event = c.yellow,
-  Field = c.purple,
-  File = c.blue,
-  Folder = c.orange,
-  Function = c.blue,
-  Interface = c.green,
-  Key = c.cyan,
-  Keyword = c.cyan,
-  Method = c.blue,
-  Module = c.orange,
-  Namespace = c.red,
-  Null = c.grey,
-  Number = c.orange,
-  Object = c.red,
-  Operator = c.red,
-  Package = c.yellow,
-  Property = c.cyan,
-  Reference = c.orange,
-  Snippet = c.red,
-  String = c.green,
-  Struct = c.purple,
-  Text = c.green,
-  TypeParameter = c.red,
-  Unit = c.green,
-  Value = c.orange,
-  Variable = c.purple,
-  Codeium = c.yellow,
+  Default = "purple",
+  Array = "yellow",
+  Boolean = "orange",
+  Class = "yellow",
+  Color = "green",
+  Constant = "orange",
+  Constructor = "blue",
+  Enum = "purple",
+  EnumMember = "yellow",
+  Event = "yellow",
+  Field = "purple",
+  File = "blue",
+  Folder = "orange",
+  Function = "blue",
+  Interface = "green",
+  Key = "cyan",
+  Keyword = "cyan",
+  Method = "blue",
+  Module = "orange",
+  Namespace = "red",
+  Null = "grey",
+  Number = "orange",
+  Object = "red",
+  Operator = "red",
+  Package = "yellow",
+  Property = "cyan",
+  Reference = "orange",
+  Snippet = "red",
+  String = "green",
+  Struct = "purple",
+  Text = "green",
+  TypeParameter = "red",
+  Unit = "green",
+  Value = "orange",
+  Variable = "purple",
+  Codeium = "yellow",
 }
 
 function M.setup()
   -- define cmp and aerial kind highlights with lsp_kind_icons_color
   for kind, color in pairs(lsp_kind_icons_color) do
-    hl.plugins.cmp["CmpItemKind" .. kind] = { fg = color, fmt = cfg.cmp_itemkind_reverse and "reverse" }
-    -- hl.plugins.cmp["CmpItemMenu" .. kind] = { fg = adjust_color(color, 0.65), fmt = "bold" }
-    hl.plugins.outline["Aerial" .. kind .. "Icon"] = { fg = color }
-    hl.plugins.navic["NavicIcons" .. kind] = { fg = color, bg = c.bg_4 }
+    hl.plugins.cmp["CmpItemKind" .. kind] = { fg = c[color], fmt = cfg.cmp_itemkind_reverse and "reverse" }
+    hl.plugins.cmp["BlinkCmpKind" .. kind] = { fg = c[color], fmt = cfg.cmp_itemkind_reverse and "reverse" }
+    hl.plugins.cmp["BlinkCmpKindText" .. kind] = { fg = c[color.."_4"], fmt = cfg.cmp_itemkind_reverse and "reverse" }
+    hl.plugins.outline["Aerial" .. kind .. "Icon"] = { fg = c[color] }
+    hl.plugins.navic["NavicIcons" .. kind] = { fg = c[color], bg = c.bg_4 }
   end
 
   vim_highlights(hl.common)
