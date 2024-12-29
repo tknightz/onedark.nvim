@@ -31,6 +31,7 @@ local colors = {
   Blue = { fg = c.blue },
   Purple = { fg = c.purple },
 }
+
 hl.common = {
   Normal = { fg = c.fg, bg = cfg.transparent and c.none or c.bg },
   Sidebar = { bg = c.bg_4 },
@@ -40,10 +41,11 @@ hl.common = {
   InactiveWinBar = { bg = c.bg_4, fg = c.grey, fmt = "italic" },
   EndOfBuffer = { fg = cfg.ending_tildes and c.grey_3 or c.bg, bg = cfg.transparent and c.none or c.bg0 },
   FoldColumn = { fg = c.grey, bg = c.none, fmt = "nocombine" },
-  Folded = { bg = cfg.transparent and c.none or c.blue_1 },
+  Folded = { bg = c.fg_1, fg = c.grey },
   SignColumn = { fg = c.fg, bg = c.none, fmt = "nocombine" },
   ToolbarLine = { fg = c.fg },
   Cursor = { fmt = "reverse" },
+  TermCursor = { bg = c.yellow_2 },
   vCursor = { fmt = "reverse" },
   iCursor = { fmt = "reverse" },
   lCursor = { fmt = "reverse" },
@@ -162,7 +164,7 @@ hl.syntax = {
   Tag = colors.Green,
   Delimiter = colors.LightGrey,
   Comment = { fg = c.grey, fmt = cfg.code_style.comments },
-  SpecialComment = { fg = c.grey_6, fmt = cfg.code_style.comments },
+  SpecialComment = { fg = c.cyan_4, fmt = cfg.code_style.comments },
   Todo = { fg = c.red, fmt = cfg.code_style.comments },
   jsonBraces = colors.LightGrey,
 }
@@ -246,7 +248,7 @@ hl.treesitter = {
   ["@markup.link.url"] = colors.Cyan,
   ["@markup.link.label"] = colors.Orange,
 
-  TreesitterContext = { bg = c.cyan_1 },
+  TreesitterContext = { bg = c.purple_1 },
   TreesitterContextLineNumber = { fg = c.cyan, fmt = "bold,italic" },
 }
 

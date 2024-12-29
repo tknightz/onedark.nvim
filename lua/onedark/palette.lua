@@ -2,10 +2,9 @@ local adjust_color = require("onedark.utils").adjust_color
 
 local base_colors = {
   dark = {
-    black = "#0c0e15",
-    -- bg = "#141923",
     bg = "#101017",
     fg = "#9baece",
+    black = "#0c0e15",
     purple = "#c75ae8",
     green = "#8bcd5b",
     orange = "#f07a65",
@@ -33,7 +32,7 @@ local base_colors = {
 
 local extended_dark = {}
 for name, val in pairs(base_colors.dark) do
-  extended_dark[name.."_1"] = adjust_color(val, 0.2)
+  extended_dark[name.."_1"] = adjust_color(val, 0.23)
   extended_dark[name.."_2"] = adjust_color(val, 0.4)
   extended_dark[name.."_3"] = adjust_color(val, 0.6)
   extended_dark[name.."_4"] = adjust_color(val, 0.8)
@@ -43,7 +42,7 @@ end
 
 local extended_light = {}
 for name, val in pairs(base_colors.light) do
-  extended_light[name.."_1"] = adjust_color(val, 0.2)
+  extended_light[name.."_1"] = adjust_color(val, 0.25)
   extended_light[name.."_2"] = adjust_color(val, 0.4)
   extended_light[name.."_3"] = adjust_color(val, 0.6)
   extended_light[name.."_4"] = adjust_color(val, 0.8)

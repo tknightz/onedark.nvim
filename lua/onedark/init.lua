@@ -16,11 +16,8 @@ function M.colorscheme()
   if vim.fn.exists("syntax_on") then vim.cmd("syntax reset") end
   vim.o.termguicolors = true
   vim.g.colors_name = "onedark"
-  if vim.o.background == 'light' then
-    M.set_options('style', 'light')
-  elseif vim.g.onedark_config.style == 'dark' then
-    M.set_options('style', 'dark')
-  end
+  local style = vim.g.onedark_config.style and vim.g.onedark_config.style or vim.o.background
+  M.set_options('style', style)
   require('onedark.highlights').setup()
   require('onedark.terminal').setup()
 end
